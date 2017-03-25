@@ -51,7 +51,7 @@ module controller(
 				fnSel=2'b00;
 				rdM=0;
 				wrM_contr=0;
-				$display("add, sub, and, or}i - rd2, wr_contr, selM1 = 10, selM2 = 01, fnSel = 00, selM3 = 10, Lflag_contr, REST=disable\n");
+				$display("rd2, wr_contr, selM1 = 10, selM2 = 01, fnSel = 00, selM3 = 10, Lflag_contr, REST=disable\n");
 			end
 			
 			else if(IW2Contr[6] == 0 && (IW2Contr[5:3] == 3'b000 || IW2Contr[5:3] == 3'b001 || IW2Contr[5:3] == 3'b010 || IW2Contr[5:3] == 3'b011) && IW2Contr[2] == 1) //{add, sub, and, or}r - rd1, rd2, wr_contr, selM1=01, selM2=01, fnSel=00, selM3=10, Lflag_contr
@@ -68,7 +68,7 @@ module controller(
 				fnSel=2'b00;
 				rdM=0;
 				wrM_contr=0;
-				$display("add, sub, and, or}r - rd1, rd2, wr_contr, selM1=01, selM2=01, fnSel=00, selM3=10, Lflag_contr");
+				$display("rd1, rd2, wr_contr, selM1=01, selM2=01, fnSel=00, selM3=10, Lflag_contr");
 			end
 			
 			else if(IW2Contr[6:2] == 5'b01000) //mnsi - rd2, selM1 = 10, selM2 = 01, fnSel = 00, selM3 = 10, Lflag_contr
@@ -85,7 +85,6 @@ module controller(
 				fnSel=2'b00;
 				rdM=0;
 				wrM_contr=0;
-				$display("mnsi - rd2, selM1 = 10, selM2 = 01, fnSel = 00, selM3 = 10, Lflag_contr");
 			end
 			
 			else if(IW2Contr[6:2] == 5'b01000) //mnsr - rd1, rd2, selM1=01, selM2=01, fnSel=00, selM3=10, Lflag_contr
@@ -102,7 +101,6 @@ module controller(
 				fnSel=2'b00;
 				rdM=0;
 				wrM_contr=0;
-				$display("mnsr - rd1, rd2, selM1=01, selM2=01, fnSel=00, selM3=10, Lflag_contr");
 			end
 			
 			else if(IW2Contr[6:3] == 4'b0101) //cmp - rd2, wr_contr, selM2=01, fnSel=01, selM3=10, Lflag_contr
@@ -119,7 +117,6 @@ module controller(
 				fnSel=2'b01;
 				rdM=0;
 				wrM_contr=0;
-				$display("cmp - rd2, wr_contr, selM2=01, fnSel=01, selM3=10, Lflag_contr");
 			end
 			
 			else if(IW2Contr[6:4] == 3'b100 && IW2Contr[2:1] == 2'b00) // li - wr_contr, selM2=10, fnSel=01, selM3=10
@@ -136,7 +133,6 @@ module controller(
 				fnSel=2'b01;
 				rdM=0;
 				wrM_contr=0;
-				$display("li - wr_contr, selM2=10, fnSel=01, selM3=10");
 			end
 			
 			else if(IW2Contr[6:4] == 3'b100 && IW2Contr[2:1] == 2'b01) //lr - rd1, wr_contr, selM2=00, fnSel=01, selM3=10
@@ -153,7 +149,6 @@ module controller(
 				fnSel=2'b01;
 				rdM=0;
 				wrM_contr=0;
-				$display("lr - rd1, wr_contr, selM2=00, fnSel=01, selM3=10");
 			end
 			
 			else if(IW2Contr[6:4] == 3'b100 && IW2Contr[2:1] == 2'b10) //la - rd1, wr_contr, selM1=01, selM2=10, fnSel=10, rdM, selM3=01
@@ -170,7 +165,6 @@ module controller(
 				fnSel=2'b10;
 				rdM=1;
 				wrM_contr=0;
-				$display("la - rd1, wr_contr, selM1=01, selM2=10, fnSel=10, rdM, selM3=01");
 			end
 			
 			else if(IW2Contr[6:4] == 3'b101) // sta - rd1, rd2, selM1=01, selM2=10, fnSel=10, wrM_contr
@@ -187,7 +181,6 @@ module controller(
 				fnSel=2'b10;
 				rdM=0;
 				wrM_contr=1;
-				$display(" sta - rd1, rd2, selM1=01, selM2=10, fnSel=10, wrM_contr");
 			end
 			
 			else if(IW2Contr[6:4] == 3'b110) //{j, jz, ..., jnm} - isJumpInstr
@@ -198,13 +191,12 @@ module controller(
 				isJumpInstr=1;
 				isCallInstr=0;
 				Lflag_contr=0;
-				selM1=2'b00;//
-				selM2=2'b10;//
+				selM1=2'b11;
+				selM2=2'b11;
 				selM3=2'b11;
-				fnSel=2'b10;//
+				fnSel=2'b11;
 				rdM=0;
 				wrM_contr=0;
-				$display("{j, jz, ..., jnm} - isJumpInstr");
 			end
 			
 			else if(IW2Contr[6:3] == 4'b1110) //jal - isCallInstr, wr_contr, selM3=00,  selM1=00, selM2=10, fnSel=10
@@ -221,7 +213,6 @@ module controller(
 				fnSel=2'b10;
 				rdM=0;
 				wrM_contr=0;
-				$display("jal - isCallInstr, wr_contr, selM3=00,  selM1=00, selM2=10, fnSel=10");
 			end
 			
 			else if(IW2Contr[6:3] == 4'b1111) // jr - isCallInstr, rd2, selM2=01, fnSel=01
@@ -238,7 +229,6 @@ module controller(
 				fnSel=2'b01;
 				rdM=0;
 				wrM_contr=0;
-				$display("jr - isCallInstr, rd2, selM2=01, fnSel=01");
 			end
 			
 			else
